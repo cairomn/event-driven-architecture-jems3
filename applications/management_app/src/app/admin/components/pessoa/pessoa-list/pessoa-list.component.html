@@ -1,0 +1,49 @@
+<app-breadcrumb [title]="'Usuários'" [items]="['Usuários']" [active_item]="'Listar'"></app-breadcrumb>
+
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-sm-12">
+      <div class="card">
+        <div class="card-header">
+          <div class="row">
+            <div class="col-6">
+              <h5 class="pt-1">Listar Usuários</h5>
+            </div>
+            <div class="col-6">
+              <a [routerLink]="['/admin/usuario/inserir']" class="btn btn-success btn-sm float-right">
+                Inserir Usuários
+              </a>
+            </div>
+          </div>
+        </div>
+        <div class="table-responsive custom-datatable">
+          <table class="table table-hover text-center">
+            <thead>
+            <tr>
+              <th>Nome</th>
+              <th>Email</th>
+              <th>Ações</th>
+            </tr>
+            </thead>
+            <tbody *ngIf="usuarios.length > 0">
+            <tr *ngFor="let usuario of usuarios;">
+              <td>{{ usuario.nome }}</td>
+              <td>{{ usuario.email | cnpj }}</td>
+              <td>
+                <a [routerLink]="['/admin/instituicao/' + usuario.id + '/editar']" class="badge badge-primary">Alterar</a>
+<!--                <a class="badge badge-danger pointer" (click)="abrirModal(instituicao)">Remover</a>-->
+              </td>
+            </tr>
+            </tbody>
+            <tbody *ngIf="usuarios.length == 0">
+            <tr style="text-align: center;">
+              <td colspan="3">Nenhum resultado encontrado.</td>
+            </tr>
+            </tbody>
+          </table>
+          <app-pagination [pagedResponse]="paged" (paginar)="paginar($event)"></app-pagination>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

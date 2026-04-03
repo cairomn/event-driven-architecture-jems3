@@ -1,0 +1,48 @@
+<div class="modal-header">
+  <h6 class="modal-title font-weight-bold">
+    Adicionar Atuador
+  </h6>
+  <button type="button" class="close" aria-label="Close" (click)="activeModal.dismiss('Cross click')">
+    <span aria-hidden="true">&times;</span>
+  </button>
+</div>
+
+<div class="modal-body">
+  <form class="form theme-form m-2">
+    <div class="row">
+      <div class="col-12">
+        <div class="form-group">
+          <label for="modalAtuadorApelido">Apelido:</label>
+          <input class="form-control" type="text" name="modalAtuadorApelido" id="modalAtuadorApelido"
+            [(ngModel)]="atuador.apelido" readonly>
+        </div>
+        <div *ngIf="errosForm.isFieldWithError('apelido')" class="text text-danger mt-1">
+          {{ errosForm.getMessageByField('apelido') }}
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-12">
+        <div class="form-group">
+          <label for="modalAtuadorTipoAtuador">Tipo Atuador*:</label>
+          <select class="form-control" name="modalAtuadorTipoAtuador" id="modalAtuadorTipoAtuador"
+            [(ngModel)]="atuador.tipoAtuador">
+            <option value="-1">Selecione</option>
+            <option *ngFor="let tpAtuador of tiposAtuadores" value="{{ tpAtuador.id }}">
+              {{ tpAtuador.descricao }}
+            </option>
+          </select>
+          <div *ngIf="errosForm.isFieldWithError('tipoAtuador')" class="text text-danger mt-1">
+            {{ errosForm.getMessageByField('tipoAtuador') }}
+          </div>
+        </div>
+      </div>
+    </div>
+  </form>
+</div>
+
+<div class="modal-footer">
+  <button type="button" class="btn btn-danger" (click)="activeModal.dismiss('Close click')">Fechar</button>
+  <button type="button" class="btn btn-success" (click)="addAtuador()">Salvar</button>
+</div>

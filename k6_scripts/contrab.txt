@@ -1,0 +1,12 @@
+crontab -e
+00 09 26 10 * /k6_experiments_run.sh VM01
+00 09 27 10 * /k6_experiments_exponencial_run.sh HAL02-VM1
+00 09 27 10 * /k6_experiments_exponencial_run.sh HAL03-VM1
+00 09 27 10 * /k6_experiments_exponencial_run.sh HAL04-VM1
+00 09 27 10 * /k6_experiments_exponencial_run.sh HAL05-VM1
+00 09 27 10 * /k6_experiments_exponencial_run.sh HAL06-VM1
+00 09 27 10 * /k6_experiments_exponencial_run.sh HAL07-VM1
+00 09 27 10 * /k6_experiments_exponencial_run.sh HAL08-VM1
+00 09 27 10 * /k6_experiments_exponencial_run.sh HAL09-VM1
+00 09 27 10 * /k6_experiments_exponencial_run.sh HAL10-VM1
+00 09 27 10 * /k6_experiments_exponencial_run.sh HAL10-VM2

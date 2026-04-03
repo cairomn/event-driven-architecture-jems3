@@ -1,0 +1,20 @@
+<!-- page-wrapper Start-->
+<div [ngClass]="layout.config.settings.layout_type" [class]="layout.config.settings.layout_version">
+  <div class="page-wrapper" id="canvas-bookmark" [ngClass]="layoutClass">
+    <div class="page-body-wrapper">
+      <cmdca-header-admin></cmdca-header-admin>
+      <div class="sidebar-wrapper" [attr.sidebar-layout]="layout.config.settings.sidebar_type"
+        [class.close_icon]="navServices.collapseSidebar">
+        <cmdca-sidebar-admin></cmdca-sidebar-admin>
+      </div>
+      <div class="page-body">
+        <main [@fadeInAnimation]="getRouterOutletState(o)">
+          <router-outlet #o="outlet"></router-outlet>
+        </main>
+      </div>
+      <!-- <footer class="footer">
+        <cmdca-footer-admin></cmdca-footer-admin>
+      </footer> -->
+    </div>
+  </div>
+</div>

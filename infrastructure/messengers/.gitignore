@@ -1,0 +1,5 @@
+/kafka_data/*
+/mosquitto_dev/data/*
+/mosquitto_hom/data/*
+/mosquitto_prod/data/*
+/mosquitto_local/data/*

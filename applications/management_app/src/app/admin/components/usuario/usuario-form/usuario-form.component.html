@@ -1,0 +1,69 @@
+<app-breadcrumb [title]="'Inserir Usuário'" [items]="['Usuário', 'Inserir Usuário']" [active_item]="'Inserir'">
+</app-breadcrumb>
+
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-sm-12">
+      <div class="card">
+        <div class="col">
+          <form class="form theme-form">
+            <div class="row my-3">
+
+              <div class="col-4">
+                <div class="form-group">
+                  <label for="usuarioFormNome">Nome<span class="text-danger">*</span>:</label>
+                  <input type="text" class="form-control" name="usuarioFormNome" id="usuarioFormNome"
+                         [(ngModel)]="usuario.nome">
+                  <div *ngIf="errosForm.isFieldWithError('nome')" class="text text-danger mt-1">
+                    {{ errosForm.getMessageByField('nome') }}
+                  </div>
+                </div>
+              </div>
+
+              <div class="col-4">
+                <div class="form-group">
+                  <label for="usuarioFormEmail">Email<span class="text-danger">*</span>:</label>
+                  <input type="text" class="form-control" name="usuarioFormEmail" id="usuarioFormEmail"
+                         [(ngModel)]="usuario.email">
+                  <div *ngIf="errosForm.isFieldWithError('email')" class="text text-danger mt-1">
+                    {{ errosForm.getMessageByField('email') }}
+                  </div>
+                </div>
+              </div>
+
+              <div class="col-4" *ngIf="!usuario.id">
+                <div class="form-group">
+                  <label for="usuarioFormSenha">Senha<span class="text-danger">*</span>:</label>
+                  <input type="password" class="form-control" name="usuarioFormSenha" id="usuarioFormSenha"
+                         [(ngModel)]="usuario.password">
+                  <div *ngIf="errosForm.isFieldWithError('senha')" class="text text-danger mt-1">
+                    {{ errosForm.getMessageByField('senha') }}
+                  </div>
+                </div>
+              </div>
+
+              <div class="col-12">
+                <h6>Perfis<span class="text-danger">*</span>:</h6>
+
+                <div class="form-check" *ngFor="let role of roles">
+                  <input class="form-check-input" type="checkbox" name="roles" [checked]="isToggleUsuario(role.id)"
+                         (click)="toggleRole(role.id)" [value]="role.id" [id]="'role_' + role.id">
+                  <label class="form-check-label" [for]="'role_' + role.id">{{ role.nome }}</label>
+                </div>
+
+                <div *ngIf="errosForm.isFieldWithError('senha')" class="text text-danger mt-1">
+                  {{ errosForm.getMessageByField('senha') }}
+                </div>
+              </div>
+
+              <div class="col-12 mt-4">
+                <button type="button" class="btn btn-danger" (click)="cancelar()">Cancelar</button>
+                <button type="button" class="btn btn-success ml-2" (click)="salvar()">Salvar</button>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

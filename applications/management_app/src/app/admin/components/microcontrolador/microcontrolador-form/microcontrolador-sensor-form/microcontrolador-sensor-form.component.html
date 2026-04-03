@@ -1,0 +1,47 @@
+<div class="modal-header">
+    <h6 class="modal-title font-weight-bold">
+      Adicionar Sensor
+    </h6>
+    <button type="button" class="close" aria-label="Close" (click)="activeModal.dismiss('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  
+  <div class="modal-body">
+    <form class="form theme-form m-2">
+      <div class="row">
+        <div class="col-12">
+          <div class="form-group">
+            <label for="microcontroladorFormApelido">Apelido:</label>
+            <input class="form-control" type="text" name="microcontroladorFormApelido" id="microcontroladorFormApelido"
+              [(ngModel)]="sensor.apelido" readonly>
+            <div *ngIf="errosForm.isFieldWithError('apelido')" class="text text-danger mt-1">
+              {{ errosForm.getMessageByField('apelido') }}
+            </div>
+          </div>
+        </div>
+      </div>
+  
+      <div class="row">
+        <div class="col-12">
+          <div class="form-group">
+            <label for="microcontroladorFormApelido">Tipo Sensor*:</label>
+            <select class="form-control" name="modalSensorTipoSensor" id="modalSensorTipoSensor" [(ngModel)]="sensor.tipoSensor">
+              <option value="-1">Selecione</option>
+              <option *ngFor="let tpSensor of tiposSensores" value="{{ tpSensor.id }}">
+                {{ tpSensor.descricao }}
+              </option>
+            </select>
+            <div *ngIf="errosForm.isFieldWithError('tipoSensor')" class="text text-danger mt-1">
+              {{ errosForm.getMessageByField('tipoSensor') }}
+            </div>
+          </div>
+        </div>
+      </div>
+    </form>
+  </div>
+  
+  <div class="modal-footer">
+    <button type="button" class="btn btn-danger" (click)="activeModal.dismiss('Close click')">Fechar</button>
+    <button type="button" class="btn btn-success" (click)="addSensor()">Adicionar Sensor</button>
+  </div>

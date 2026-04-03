@@ -1,0 +1,49 @@
+<app-breadcrumb [title]="'Instituições'" [items]="['Instituição']" [active_item]="'Listar'"></app-breadcrumb>
+
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-sm-12">
+      <div class="card">
+        <div class="card-header">
+          <div class="row">
+            <div class="col-6">
+              <h5 class="pt-1">Listar Instituições</h5>
+            </div>
+            <div class="col-6">
+              <a [routerLink]="['/admin/instituicao/inserir']" class="btn btn-success btn-sm float-right">
+                Inserir Instituição
+              </a>
+            </div>
+          </div>
+        </div>
+        <div class="table-responsive custom-datatable">
+          <table class="table table-hover text-center">
+            <thead>
+              <tr>
+                <th>Nome</th>
+                <th>CNPJ</th>
+                <th>Ações</th>
+              </tr>
+            </thead>
+            <tbody *ngIf="instituicoes.length > 0">
+              <tr *ngFor="let instituicao of instituicoes;">
+                <td>{{ instituicao.nome }}</td>
+                <td>{{ instituicao.cnpj | cnpj }}</td>
+                <td>
+                  <a [routerLink]="['/admin/instituicao/' + instituicao.id + '/editar']" class="badge badge-primary">Alterar</a>
+                  <a class="badge badge-danger pointer" (click)="abrirModal(instituicao)">Remover</a>
+                </td>
+              </tr>
+            </tbody>
+            <tbody *ngIf="instituicoes.length == 0">
+              <tr style="text-align: center;">
+                <td colspan="3">Nenhum resultado encontrado.</td>
+              </tr>
+            </tbody>
+          </table>
+          <app-pagination [pagedResponse]="paged" (paginar)="paginar($event)"></app-pagination>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

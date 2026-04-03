@@ -1,0 +1,17 @@
+kafka:
+  retries: 0
+  batch:
+    size: 16384
+  linger:
+    ms: 1
+  buffer:
+    memory: 33554432
+  key:
+    serializer: org.apache.kafka.common.serialization.StringSerializer
+  value:
+    serializer: org.springframework.kafka.support.serializer.JsonSerializer
+mqtt:
+  qos: 1
+  completionTimeout: 5000
+server:
+  port: 8080

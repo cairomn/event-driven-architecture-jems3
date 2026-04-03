@@ -1,0 +1,10 @@
+FROM maven:3.6.0-jdk-11-slim AS build
+COPY ./src /home/api/src
+COPY ./pom.xml /home/api
+WORKDIR /home/api/
+RUN mvn clean package -Dmaven.test.skip
+
+FROM openjdk:11
+COPY --from=build /home/api/target/*.jar /usr/local/lib/app.jar
+ENTRYPOINT ["java", "-jar", "-Dspring.profiles.active=hom", "/usr/local/lib/app.jar"]
+EXPOSE 8080

@@ -1,0 +1,77 @@
+version: '3.8'
+
+services:
+  # Define a configuração da API.
+  management-api:
+    image: management-dashboard-api:1.0.0
+    build:
+      context: ./management_api
+      dockerfile: Dockerfile
+    container_name: management_dash_api
+    ports:
+      - "8010:8080"
+    expose:
+      - 8010
+    networks:
+      - infra_network
+
+  # Define a configuração da aplicação.
+  management-app:
+    image: management-dashboard-app:1.0.0
+    build:
+      context: ./management_app
+      dockerfile: Dockerfile
+    container_name: management_dash_app
+    ports:
+      - "4200:80"
+    expose:
+      - 4200
+    networks:
+      - infra_network
+
+  # Executa o Servico de controle das medicoes.     
+  stream-control-service:
+    image: stream-control-service:1.0.0
+    build:
+      context: ./stream-control-service
+      dockerfile: Dockerfile
+    container_name: service_stream_control
+    ports:
+      - "8011:8080"
+    expose:
+      - 8011
+    networks:
+      - infra_network
+
+  # Define a configuração da bridge entre mqtt e kafka.
+  mqtt-kafka-bridge:
+    image: mqtt-kafka-bridge:1.0.0
+    build: 
+      context: ./mqtt-kafka-bridge
+      dockerfile: Dockerfile
+    container_name: mqtt-kafka-bridge
+    ports:
+      - "8012:8080"
+    expose:
+      - 8012
+    networks:
+      - infra_network
+
+  # Define a configuração da bridge entre kafka e mqtt.
+  kafka-mqtt-bridge:
+    image: kafka-mqtt-bridge:1.0.0
+    build:
+      context: ./kafka-mqtt-bridge
+      dockerfile: Dockerfile
+    container_name: kafka-mqtt-bridge
+    ports:
+      - "8013:8080"
+    expose:
+      - 8013
+    networks:
+      - infra_network
+
+networks:
+  infra_network:
+    name: infra_network
+    driver: bridge

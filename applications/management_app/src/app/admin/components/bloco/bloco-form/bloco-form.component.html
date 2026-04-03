@@ -1,0 +1,49 @@
+<app-breadcrumb [title]="'Inserir Bloco'" [items]="['Blocos', 'Listar Bloco']" [active_item]="'Inserir'">
+</app-breadcrumb>
+
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-sm-12">
+      <div class="card">
+        <div class="col">
+          <form class="form theme-form">
+            <div class="row my-2">
+              <div class="col-4">
+                <div class="form-group">
+                  <label for="blocFormInstituicao">Instituição<span class="text-danger">*</span>:</label>
+                  <select class="form-control" name="blocFormInstituicao" id="blocFormInstituicao"
+                    (change)="atualizarInstituicaoBloco($event.target.value)" [(ngModel)]="bloco.instituicao.id">
+                    <option value="">Selecione</option>
+                    <option *ngFor="let instituicao of instituicoes" value="{{ instituicao.id }}">
+                      {{ instituicao.nome }}
+                    </option>
+                  </select>
+                  <div *ngIf="errosForm.isFieldWithError('instituicao')" class="text text-danger mt-1">
+                    {{ errosForm.getMessageByField('instituicao') }}
+                  </div>
+                </div>
+              </div>
+              <div class="col-4">
+                <div class="form-group">
+                  <label for="blocFormNome">Bloco<span class="text-danger">*</span>:</label>
+                  <input type="text" class="form-control" name="blocFormNome" id="blocFormNome"
+                    [(ngModel)]="bloco.nome">
+                  <div *ngIf="errosForm.isFieldWithError('nome')" class="text text-danger mt-1">
+                    {{ errosForm.getMessageByField('nome') }}
+                  </div>
+                </div>
+              </div>
+
+              <div class="col-3">
+                <div style="padding-top: 28px;">
+                  <button type="button" class="btn btn-danger" (click)="cancelar()">Cancelar</button>
+                  <button type="button" class="btn btn-success ml-2" (click)="salvar()">Salvar</button>
+                </div>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

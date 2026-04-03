@@ -1,0 +1,38 @@
+<div class="col-12">
+  <div class="d-flex d-flex justify-content-between my-4">
+    <div class="d-flex align-items-center">
+      <span style="font-weight: 400;">
+        Exibindo {{ getTotalPagina() }} até {{ paged.totalElements < paged.size ? paged.totalElements : paged.size }} de {{ paged.totalElements }} registro(s).
+      </span>
+    </div>
+  
+    <nav aria-label="Page navigation example">
+      <ul class="pagination justify-content-center">
+        <li *ngIf="paged.page <= 0" [ngClass]="{'page-item': true, 'pointer': true, 'disabled': paged.page <= 0}">
+          <span class="page-link" href="#" tabindex="-1">Anterior</span>
+        </li>
+        <li *ngIf="paged.page > 0" [ngClass]="{'page-item': true, 'pointer': true}" (click)="paginarPorPagina(paged.page -1)">
+          <span class="page-link" href="#" tabindex="-1">Anterior</span>
+        </li>
+
+        <li *ngIf="paged.page != 0" class="page-item pointer" (click)="paginarPorPagina(paged.page - 1)">
+          <span class="page-link" href="#">{{ paged.page }}</span>
+        </li>
+        <li class="page-item active pointer">
+          <span class="page-link">{{ paged.page + 1 }}</span>
+        </li>
+        <li *ngIf="!paged.last" class="page-item pointer" (click)="paginarPorPagina(paged.page + 1)">
+          <span class="page-link" href="#">{{ paged.page + 2 }}</span>
+        </li>
+
+
+        <li *ngIf="!paged.last" [ngClass]="{'page-item': true, 'pointer': true, 'disabled': paged.last}" (click)="paginarPorPagina(paged.page + 1)">
+          <span class="page-link" href="#">Próximo</span>
+        </li>
+        <li *ngIf="paged.last" [ngClass]="{'page-item': true, 'pointer': true, 'disabled': paged.last}">
+          <span class="page-link" href="#">Próximo</span>
+        </li>
+      </ul>
+    </nav>
+  </div>
+</div>

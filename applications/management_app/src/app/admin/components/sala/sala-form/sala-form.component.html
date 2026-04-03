@@ -1,0 +1,68 @@
+<app-breadcrumb [title]="'Inserir Sala'" [items]="['Salas', 'Listar Sala']" [active_item]="'Inserir'">
+</app-breadcrumb>
+
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-sm-12">
+      <div class="card">
+        <div class="col">
+          <form class="form theme-form">
+            <div class="row my-3">
+              <div class="col-4">
+                <div class="form-group">
+                  <label for="salaFormInstituicao">Instituição<span class="text-danger">*</span>:</label>
+                  <select class="form-control" name="salaFormInstituicao" id="salaFormInstituicao"
+                    [(ngModel)]="instituicao.id" (change)="getBlocos($event.target.value)">
+                    <option value="">Selecione...</option>
+                    <option *ngFor="let instituicao of instituicoes" [value]="instituicao.id">{{ instituicao.nome }}
+                    </option>
+                  </select>
+                </div>
+              </div>
+
+              <div class="col-4">
+                <div class="form-group">
+                  <label for="salaFormBloco">Bloco<span class="text-danger">*</span>:</label>
+                  <select class="form-control" name="salaFormBloco" id="salaFormBloco"
+                    [(ngModel)]="bloco.id" (change)="getPisos($event.target.value)">
+                    <option value="">Selecione...</option>
+                    <option *ngFor="let bloco of blocos" [value]="bloco.id">{{ bloco.nome }}</option>
+                  </select>
+                </div>
+              </div>
+
+              <div class="col-4">
+                <div class="form-group">
+                  <label for="salaFormPiso">Piso<span class="text-danger">*</span>:</label>
+                  <select class="form-control" name="salaFormPiso" id="salaFormPiso"
+                    [(ngModel)]="piso.id">
+                    <option value="">Selecione...</option>
+                    <option *ngFor="let piso of pisos" [value]="piso.id">{{ piso.nome }}</option>
+                  </select>
+                  <div *ngIf="errosForm.isFieldWithError('piso')" class="text text-danger mt-1">
+                    {{ errosForm.getMessageByField('piso') }}
+                  </div>
+                </div>
+              </div>
+
+              <div class="col-4">
+                <div class="form-group">
+                  <label for="salaFormNome">Sala<span class="text-danger">*</span>:</label>
+                  <input type="text" class="form-control" name="salaFormNome" id="salaFormNome" [(ngModel)]="sala.nome">
+                  <div *ngIf="errosForm.isFieldWithError('nome')" class="text text-danger mt-1">
+                    {{ errosForm.getMessageByField('nome') }}
+                  </div>
+                </div>
+              </div>
+
+              <div class="col-12">
+                <button type="button" class="btn btn-danger" (click)="cancelar()">Cancelar</button>
+                <button type="button" class="btn btn-success ml-2" (click)="salvar()">Salvar</button>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

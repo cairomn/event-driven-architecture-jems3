@@ -1,0 +1,116 @@
+<app-breadcrumb [title]="'Microcontroladores'" [items]="['Microcontrolador']" [active_item]="'Listar'"></app-breadcrumb>
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-sm-12">
+      <div class="card">
+        <div class="card-header">
+          <div class="row">
+            <div class="col-6">
+              <h5 class="pt-1">Listar Microcontroladores</h5>
+            </div>
+            <div class="col-6">
+              <a [routerLink]="['/admin/microcontrolador/inserir']" class="btn btn-success btn-sm float-right">
+                Inserir Microcontrolador
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <div class="card-body">
+          <form class="form theme-form">
+            <div class="row my-2">
+              <div class="col-4">
+                <div class="form-group">
+                  <label for="microListInstituicao">Instituição:</label>
+                  <select class="form-control" name="microListInstituicao" id="microListInstituicao"
+                    [(ngModel)]="idInstituicao" (change)="getBlocos($event.target.value)">
+                    <option value="">Selecione</option>
+                    <option *ngFor="let instituicao of instituicoes;" value="{{ instituicao.id }}">
+                      {{ instituicao.nome }}
+                    </option>
+                  </select>
+                </div>
+              </div>
+
+              <div class="col-4">
+                <div class="form-group">
+                  <label for="microListBloco">Bloco:</label>
+                  <select class="form-control" name="microListBloco" id="microListBloco" [(ngModel)]="idBloco"
+                    [disabled]="idInstituicao === ''" (change)="getPisos($event.target.value)">
+                    <option value="">Selecione</option>
+                    <option *ngFor="let bloco of blocos;" value="{{ bloco.id }}">
+                      {{ bloco.nome }}
+                    </option>
+                  </select>
+                </div>
+              </div>
+
+              <div class="col-4">
+                <div class="form-group">
+                  <label for="microListPiso">Piso:</label>
+                  <select class="form-control" name="microListPiso" id="microListPiso" [(ngModel)]="idPiso"
+                    [disabled]="idBloco === ''" (change)="getSalas($event.target.value)">
+                    <option value="">Selecione</option>
+                    <option *ngFor="let piso of pisos;" value="{{ piso.id }}">
+                      {{ piso.nome }}
+                    </option>
+                  </select>
+                </div>
+              </div>
+
+              <div class="col-4">
+                <div class="form-group">
+                  <label for="microListSala">Sala</label>
+                  <select class="form-control" name="microListSala" id="microListSala" [(ngModel)]="idSala"
+                    [disabled]="idPiso === ''" (change)="getMicrocontroladores($event.target.value)">
+                    <option value="">Selecione</option>
+                    <option *ngFor="let sala of salas;" value="{{ sala.id }}">
+                      {{ sala.nome }}
+                    </option>
+                  </select>
+                </div>
+              </div>
+            </div>
+          </form>
+        </div>
+
+        <div class="table-responsive">
+          <table class="table table-hover text-center">
+            <thead>
+              <tr>
+                <th>UUID</th>
+                <th>Nome</th>
+                <th>MAC Address</th>
+                <th>Ações</th>
+              </tr>
+            </thead>
+            <tbody *ngIf="microcontroladores.length > 0">
+              <tr *ngFor="let microcontrolador of microcontroladores;">
+                <td>{{ microcontrolador.id }}</td>
+                <td>{{ microcontrolador.apelido }}</td>
+                <td class="text-uppercase">
+                  {{ microcontrolador.macAddress | mask:"AA:AA.AA:AA.AA:AA" }}
+                </td>
+                <td>
+                  <a [routerLink]="['/admin/microcontrolador/' + microcontrolador.id + '/editar']"
+                    [queryParams]="{ instituicao: idInstituicao, bloco: idBloco, piso: idPiso, sala: idSala }"
+                    class="badge badge-primary">
+                    Alterar
+                  </a>
+                  <a class="badge badge-secondary pointer" (click)="abrirModalAcoes(microcontrolador)">Ações</a>
+                  <a class="badge badge-danger pointer" (click)="abrirModal(microcontrolador)">Remover</a>
+                </td>
+              </tr>
+            </tbody>
+            <tbody *ngIf="microcontroladores.length == 0">
+              <tr style="text-align: center;">
+                <td colspan="6">Nenhum resultado encontrado.</td>
+              </tr>
+            </tbody>
+          </table>
+          <app-pagination [pagedResponse]="paged" (paginar)="paginar($event)"></app-pagination>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

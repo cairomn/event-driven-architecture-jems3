@@ -1,0 +1,10 @@
+kafka:
+  broker:
+    address: 10.1.3.73:9073
+mqtt:
+  topic: lasdpc/temperature/measure,lasdpc/humidity/measure,lasdpc/co2/measure,lasdpc/movement/measure,lasdpc/luminosity/measure,lasdpc/status/check
+  broker:
+    address: tcp://10.1.3.73:1873
+  username:
+  password:
+  clientId: mqtt-client-prod

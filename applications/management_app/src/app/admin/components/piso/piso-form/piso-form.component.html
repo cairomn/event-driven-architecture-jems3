@@ -1,0 +1,57 @@
+<app-breadcrumb [title]="'Inserir Piso'" [items]="['Pisos', 'Listar Piso']" [active_item]="'Inserir'">
+</app-breadcrumb>
+
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-sm-12">
+      <div class="card">
+        <div class="col">
+          <form class="form theme-form">
+            <div class="row my-3">
+              <div class="col-4">
+                <div class="form-group">
+                  <label for="pisoFormInstituicao">Instituição<span class="text-danger">*</span>:</label>
+                  <select class="form-control" name="pisoFormInstituicao" id="pisoFormInstituicao"
+                    [(ngModel)]="instituicao.id" (change)="getBlocos($event.target.value)">
+                    <option value="">Selecione</option>
+                    <option *ngFor="let instituicao of instituicoes" value="{{ instituicao.id }}">
+                      {{ instituicao.nome }}
+                    </option>
+                  </select>
+                </div>
+              </div>
+
+              <div class="col-4">
+                <div class="form-group">
+                  <label for="pisoFormBloco">Bloco<span class="text-danger">*</span>:</label>
+                  <select class="form-control" name="pisoFormBloco" id="pisoFormBloco" [(ngModel)]="bloco.id"
+                    [disabled]="instituicao.id == ''">
+                    <option value="">Selecione</option>
+                    <option *ngFor="let bloco of blocos" value="{{ bloco.id }}">
+                      {{ bloco.nome }}
+                    </option>
+                  </select>
+                </div>
+              </div>
+
+              <div class="col-4">
+                <div class="form-group">
+                  <label for="pisoFormNome">Piso<span class="text-danger">*</span>:</label>
+                  <input type="text" class="form-control" name="pisoFormNome" id="pisoFormNome" [(ngModel)]="piso.nome">
+                  <div *ngIf="errosForm.isFieldWithError('nome')" class="text text-danger mt-1">
+                    {{ errosForm.getMessageByField('nome') }}
+                  </div>
+                </div>
+              </div>
+
+              <div class="col-12">
+                <button type="button" class="btn btn-danger" (click)="cancelar()">Cancelar</button>
+                <button type="button" class="btn btn-success ml-2" (click)="salvar()">Salvar</button>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

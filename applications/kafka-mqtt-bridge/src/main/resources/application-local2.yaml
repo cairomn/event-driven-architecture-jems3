@@ -1,0 +1,12 @@
+spring:
+  kafka:
+    properties:
+      bootstrap.servers: localhost:9094
+    consumer:
+      group-id: icmc
+mqtt:
+  clientId: mqtt_client_lasdpc_dev
+  broker:
+    address: tcp://localhost:1883
+server:
+  port: 8082

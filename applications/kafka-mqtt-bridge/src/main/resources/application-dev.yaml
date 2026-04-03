@@ -1,0 +1,10 @@
+spring:
+  kafka:
+    properties:
+      bootstrap.servers: kafka:9092
+    consumer:
+      group-id: icmc_dev
+mqtt:
+  clientId: mqtt_client_lasdpc_dev
+  broker:
+    address: tcp://mosquitto:1883

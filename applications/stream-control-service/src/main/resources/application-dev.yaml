@@ -1,0 +1,18 @@
+spring:
+  application:
+    name: Service - Stream Control Dev
+  data:
+    mongodb:
+      host: 10.1.3.71
+      port: 27017
+      username: smartlabRoot
+      password: smartlabRoot2022
+      database: SMARTLAB
+  kafka:
+    bootstrap-servers: kafka:9092
+    group-id: scs-dev
+    consumer:
+      bootstrap-servers: kafka:9092
+      group-id: icmc
+    producer:
+      bootstrap-servers: kafka:9092

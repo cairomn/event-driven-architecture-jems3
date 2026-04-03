@@ -1,0 +1,10 @@
+kafka:
+  broker:
+    address: localhost:9094
+mqtt:
+  topic: lasdpc/temperature/measure,lasdpc/humidity/measure,lasdpc/co2/measure,lasdpc/movement/measure,lasdpc/luminosity/measure,lasdpc/status/check
+  broker:
+    address: tcp://localhost:1883
+  username:
+  password:
+  clientId: mqtt-client

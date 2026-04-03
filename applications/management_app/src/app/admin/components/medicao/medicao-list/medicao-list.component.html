@@ -1,0 +1,117 @@
+<app-breadcrumb [title]="'Medições'" [items]="['Medições']" [active_item]="'Listar'"></app-breadcrumb>
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-sm-12">
+      <div class="card">
+        <div class="card-header">
+          <div class="row">
+            <div class="col-6">
+              <h5 class="pt-1">Listar Medições</h5>
+            </div>
+          </div>
+        </div>
+
+        <div class="card-body">
+          <form class="form theme-form">
+            <div class="row my-2">
+              <div class="col-4">
+                <div class="form-group">
+                  <label for="microListInstituicao">Instituição:</label>
+                  <select class="form-control" name="microListInstituicao" id="microListInstituicao"
+                    [(ngModel)]="idInstituicao" (change)="getBlocos($event.target.value)">
+                    <option value="">Selecione</option>
+                    <option *ngFor="let instituicao of instituicoes;" value="{{ instituicao.id }}">
+                      {{ instituicao.nome }}
+                    </option>
+                  </select>
+                </div>
+              </div>
+
+              <div class="col-4">
+                <div class="form-group">
+                  <label for="microListBloco">Bloco:</label>
+                  <select class="form-control" name="microListBloco" id="microListBloco" [(ngModel)]="idBloco"
+                    [disabled]="idInstituicao === ''" (change)="getPisos($event.target.value)">
+                    <option value="">Selecione</option>
+                    <option *ngFor="let bloco of blocos;" value="{{ bloco.id }}">
+                      {{ bloco.nome }}
+                    </option>
+                  </select>
+                </div>
+              </div>
+
+              <div class="col-4">
+                <div class="form-group">
+                  <label for="microListPiso">Piso:</label>
+                  <select class="form-control" name="microListPiso" id="microListPiso" [(ngModel)]="idPiso"
+                    [disabled]="idBloco === ''" (change)="getSalas($event.target.value)">
+                    <option value="">Selecione</option>
+                    <option *ngFor="let piso of pisos;" value="{{ piso.id }}">
+                      {{ piso.nome }}
+                    </option>
+                  </select>
+                </div>
+              </div>
+
+              <div class="col-4">
+                <div class="form-group">
+                  <label for="microListSala">Sala</label>
+                  <select class="form-control" name="microListSala" id="microListSala" [(ngModel)]="idSala"
+                    [disabled]="idPiso === ''" (change)="getMicrocontroladores($event.target.value)">
+                    <option value="">Selecione</option>
+                    <option *ngFor="let sala of salas;" value="{{ sala.id }}">
+                      {{ sala.nome }}
+                    </option>
+                  </select>
+                </div>
+              </div>
+            </div>
+          </form>
+        </div>
+
+        <div class="table-responsive">
+          <table class="table table-hover text-center">
+            <thead>
+              <tr>
+                <th>Microcontrolador</th>
+                <th>MAC Address</th>
+                <th>Tipo</th>
+                <th>Nome</th>
+                <th>Status</th>
+                <th>Ações</th>
+              </tr>
+            </thead>
+            <tbody *ngIf="microcontroladores.length > 0">
+              <tr *ngFor="let list of getAtuadoresSensores();">
+                <td>{{ list.microcontroladorNome }}</td>
+                <td class="text-uppercase">{{ list.microcontroladorMacAddress | mask:"AA:AA.AA:AA.AA:AA" }}</td>
+                <td>{{ list.nomeTipo }}</td>
+                <td>
+                  <span *ngIf="list.tipo === 'SENSOR'">{{ list.nome }}</span>
+                  <span *ngIf="list.tipo === 'ATUADOR'">{{ list.nome }}</span>
+                </td>
+                <td>
+                  <label class="badge badge-secondary" *ngIf="list.status == null">Não Informado</label>
+                  <label class="badge badge-success" *ngIf="list.status == 1">Ativo</label>
+                  <label class="badge badge-danger" *ngIf="list.status == 2">Inativo</label>
+                </td>
+                <td class="text-center">
+                  <span *ngIf="list.status != 1">-</span>
+                  <a *ngIf="list.status == 1" class="badge badge-success pointer" 
+                    (click)="abrirModalMedicao(list);">
+                    Medições
+                  </a>
+                </td>
+              </tr>
+            </tbody>
+            <tbody *ngIf="microcontroladores.length == 0">
+              <tr style="text-align: center;">
+                <td colspan="6">Nenhum resultado encontrado.</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

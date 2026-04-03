@@ -1,0 +1,10 @@
+spring:
+  application:
+    name: Management API
+  datasource:
+    url: jdbc:postgresql://localhost:5432/SMARTLAB_DB
+    username: SMARTLAB_USER
+    password: SMARTLAB_123456
+  kafka:
+    bootstrap-servers: localhost:9094
+    client-id: management-api-local

@@ -1,0 +1,205 @@
+<app-breadcrumb [title]="'Inserir Microcontrolador'" [items]="['Microcontroladores', 'Listar Microcontroladores']"
+  [active_item]="'Inserir'">
+</app-breadcrumb>
+
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-sm-12">
+      <div class="card">
+        <div class="col">
+          <form class="form theme-form my-2">
+            <div class="row">
+
+              <div class="col-3">
+                <div class="form-group">
+                  <label for="microcontroladorFormApelido">Apelido<span class="text-danger">*</span>:</label>
+                  <input class="form-control" type="text" name="microcontroladorFormApelido"
+                    id="microcontroladorFormApelido" [(ngModel)]="microcontrolador.apelido" readonly>
+                  <div *ngIf="errosForm.isFieldWithError('apelido')" class="text text-danger mt-1">
+                    {{ errosForm.getMessageByField('apelido') }}
+                  </div>
+                </div>
+              </div>
+
+              <div class="col-3">
+                <div class="form-group">
+                  <label for="microcontroladorFormMAC">MAC Address<span class="text-danger">*</span>:</label>
+                  <input class="form-control" type="text" name="microcontroladorFormMAC" id="microcontroladorFormMAC"
+                    [(ngModel)]="microcontrolador.macAddress" mask="AA:AA:AA:AA:AA:AA">
+                  <div *ngIf="errosForm.isFieldWithError('macAddress')" class="text text-danger mt-1">
+                    {{ errosForm.getMessageByField('macAddress') }}
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-3">
+                <div class="form-group">
+                  <label for="microcontroladorInstituicao">Instituição<span class="text-danger">*</span>:</label>
+                  <select class="form-control" name="microcontroladorInstituicao" id="microcontroladorInstituicao"
+                    [(ngModel)]="microcontrolador.sala.piso.bloco.instituicao.id"
+                    (change)="getBlocos($event.target.value)">
+                    <option value="">Selecione...</option>
+                    <option *ngFor="let instituicao of instituicoes;" value="{{ instituicao.id }}">
+                      {{ instituicao.nome }}
+                    </option>
+                  </select>
+                  <div *ngIf="errosForm.isFieldWithError('instituicao')" class="text text-danger mt-1">
+                    {{ errosForm.getMessageByField('instituicao') }}
+                  </div>
+                </div>
+              </div>
+
+              <div class="col-3">
+                <div class="form-group">
+                  <label for="microcontroladorBloco">Bloco<span class="text-danger">*</span>:</label>
+                  <select class="form-control" name="microcontroladorBloco" id="microcontroladorBloco"
+                    [(ngModel)]="microcontrolador.sala.piso.bloco.id"
+                    [disabled]="microcontrolador.sala.piso.bloco.instituicao.id === ''"
+                    (change)="getPisos($event.target.value)">
+                    <option value="">Selecione...</option>
+                    <option *ngFor="let bloco of blocos;" value="{{ bloco.id }}">
+                      {{ bloco.nome }}
+                    </option>
+                  </select>
+                </div>
+              </div>
+
+              <div class="col-3">
+                <div class="form-group">
+                  <label for="microcontroladorPiso">Piso<span class="text-danger">*</span>:</label>
+                  <select class="form-control" name="microcontroladorPiso" id="microcontroladorPiso"
+                    [(ngModel)]="microcontrolador.sala.piso.id" [disabled]="microcontrolador.sala.piso.bloco.id === ''"
+                    (change)="getSalas($event.target.value)">
+                    <option value="">Selecione...</option>
+                    <option *ngFor="let piso of pisos;" value="{{ piso.id }}">
+                      {{ piso.nome }}
+                    </option>
+                  </select>
+                </div>
+              </div>
+
+              <div class="col-3">
+                <div class="form-group">
+                  <label for="microcontroladorSala">Sala<span class="text-danger">*</span>:</label>
+                  <select class="form-control" name="microcontroladorSala" id="microcontroladorSala"
+                    [(ngModel)]="microcontrolador.sala.id" [disabled]="microcontrolador.sala.piso.id === ''">
+                    <option value="">Selecione...</option>
+                    <option *ngFor="let sala of salas;" value="{{ sala.id }}">
+                      {{ sala.nome }}
+                    </option>
+                  </select>
+                  <div *ngIf="errosForm.isFieldWithError('sala')" class="text text-danger mt-1">
+                    {{ errosForm.getMessageByField('sala') }}
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="row mt-2">
+              <div class="col-12">
+                <div class="row">
+                  <div class="col-6">
+                    <h6 class="font-weight-bold">Sensores Vinculados</h6>
+                  </div>
+                  <div class="col-6">
+                    <button class="btn btn-success btn-sm float-right" (click)="abrirModalAddSensor()">
+                      Adicionar Sensor
+                    </button>
+                  </div>
+                </div>
+              </div>
+
+              <table class="table table-sm mt-2 text-center">
+                <thead>
+                  <tr>
+                    <th>UUID</th>
+                    <th>Apelido Sensor</th>
+                    <th>Tipo Sensor</th>
+                    <th *ngIf="microcontrolador.id">Status</th>
+                    <th>Ações</th>
+                  </tr>
+                </thead>
+                <tbody *ngIf="microcontrolador.sensores.length > 0">
+                  <tr *ngFor="let sensor of microcontrolador.sensores">
+                    <td>{{ sensor.id ?? '-' }}</td>
+                    <td>{{ sensor.apelido }}</td>
+                    <td>{{ getDescricaoTipoSensor(sensor.tipoSensor) }}</td>
+                    <td *ngIf="microcontrolador.id">
+                      <label class="badge badge-secondary" *ngIf="sensor.status == null">Não Informado</label>
+                      <label class="badge badge-success" *ngIf="sensor.status == 1">Ativo</label>
+                      <label class="badge badge-danger" *ngIf="sensor.status == 2">Inativo</label>
+                    </td>
+                    <td>
+                      <a class="badge badge-danger pointer" (click)="abrirModalRemocaoSensor(sensor);">Remover</a>
+                    </td>
+                  </tr>
+                </tbody>
+                <tbody *ngIf="microcontrolador.sensores.length == 0">
+                  <tr>
+                    <td colspan="4">Nenhum resultado encontrado.</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+
+            <div class="row mt-3">
+              <div class="col-12">
+                <div class="row">
+                  <div class="col-6">
+                    <h6 class="font-weight-bold">Atuadores Vinculados</h6>
+                  </div>
+                  <div class="col-6">
+                    <button class="btn btn-success btn-sm float-right" (click)="abrirModalAddAtuador()">
+                      Adicionar Atuador
+                    </button>
+                  </div>
+                </div>
+              </div>
+
+              <table class="table table-sm mt-2 text-center">
+                <thead>
+                  <tr>
+                    <th>UUID</th>
+                    <th>Apelido Atuador</th>
+                    <th>Tipo Atuador</th>
+                    <th *ngIf="microcontrolador.id">Status</th>
+                    <th>Ações</th>
+                  </tr>
+                </thead>
+                <tbody *ngIf="microcontrolador.atuadores.length > 0">
+                  <tr *ngFor="let atuador of microcontrolador.atuadores;">
+                    <td>{{ atuador.id ?? '-' }}</td>
+                    <td>{{ atuador.apelido }}</td>
+                    <td>{{ getDescricaoTipoAtuador(atuador.tipoAtuador) }}</td>
+                    <td *ngIf="microcontrolador.id">
+                      <label class="badge badge-secondary" *ngIf="atuador.status == null">Não Informado</label>
+                      <label class="badge badge-success" *ngIf="atuador.status == 1">Ativo</label>
+                      <label class="badge badge-danger" *ngIf="atuador.status == 2">Inativo</label>
+                    </td>
+                    <td>
+                      <a class="badge badge-danger pointer" (click)="abrirModalRemocaoAtuador(atuador);">Remover</a>
+                    </td>
+                  </tr>
+                </tbody>
+                <tbody *ngIf="microcontrolador.atuadores.length == 0">
+                  <tr>
+                    <td colspan="4">Nenhum resultado encontrado.</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+
+            <div class="row">
+              <div class="col-12 my-3">
+                <button type="button" class="btn btn-success ml-2 float-right" (click)="salvar()">Salvar</button>
+                <button type="button" class="btn btn-danger ml-2  float-right" (click)="cancelar()">Cancelar</button>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

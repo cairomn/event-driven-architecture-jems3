@@ -1,0 +1,46 @@
+<app-breadcrumb [title]="'Inserir Instituição'" [items]="['Instituições', 'Listar Instituições']"
+  [active_item]="'Inserir'">
+</app-breadcrumb>
+
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-sm-12">
+      <div class="card">
+        <div class="col">
+          <form class="form theme-form">
+            <div class="row my-2">
+              <div class="col-4">
+                <div class="form-group">
+                  <label for="instituicaoFormNome">Nome da Instituição<span class="text-danger">*</span>:</label>
+                  <input class="form-control" type="text" name="instituicaoFormNome" id="instituicaoFormNome"
+                    [(ngModel)]="instituicao.nome" autocomplete="off">
+                  <div *ngIf="errosForm.isFieldWithError('nome')" class="text text-danger mt-1">
+                    {{ errosForm.getMessageByField('nome') }}
+                  </div>
+                </div>
+              </div>
+
+              <div class="col-4">
+                <div class="form-group">
+                  <label for="instituicaoFormCNPJ">CNPJ Instituição<span class="text-danger">*</span>:</label>
+                  <input class="form-control" type="text" name="instituicaoFormCNPJ" id="instituicaoFormCNPJ"
+                    [(ngModel)]="instituicao.cnpj" maxlength="18" autocomplete="off" mask="00.000.000/0000-00">
+                  <div *ngIf="errosForm.isFieldWithError('cnpj')" class="text text-danger mt-1">
+                    {{ errosForm.getMessageByField('cnpj') }}
+                  </div>
+                </div>
+              </div>
+
+              <div class="col-4">
+                <div style="padding-top: 28px;">
+                  <button type="button" class="btn btn-danger" (click)="cancelar()">Cancelar</button>
+                  <button type="button" class="btn btn-success ml-2" (click)="salvar()">Salvar</button>
+                </div>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

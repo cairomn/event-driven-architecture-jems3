@@ -1,0 +1,15 @@
+version: '3.8'
+
+services:
+  k6:
+    image: k6-performance-test
+    build:
+      context: ./
+      dockerfile: Dockerfile
+      args:
+        TEST: ${TEST}
+    volumes:
+      - ./outputs:/outputs
+networks:
+  infra_network:
+    external: true

@@ -1,0 +1,33 @@
+<!-- Page Header Start-->
+<div class="page-header" [class.close_icon]="navServices.collapseSidebar">
+  <div class="header-wrapper row m-0">
+    <!-- <app-search></app-search> -->
+    <div class="header-logo-wrapper">
+      <div class="logo-wrapper">
+        <a routerLink='/'>
+          <img class="img-fluid for-light" style="max-height: 30px !important;" src="assets/images/logo/logo.png" alt="">
+          <img class="img-fluid for-dark" style="max-height: 30px !important;" src="assets/images/logo/logo_dark.png" alt="">
+        </a>
+      </div>
+      <div class="toggle-sidebar" (click)="sidebarToggle()">
+        <app-feather-icons [icon]="'grid'" class="status_toggle middle"></app-feather-icons>
+      </div>
+    </div>
+    <div class="left-header col horizontal-wrapper pl-0">
+      <!-- <cmdca-mega-menu-header-admin></cmdca-mega-menu-header-admin> -->
+    </div>
+    <div class="nav-right col-8 pull-right right-header p-0">
+      <ul class="nav-menus">
+        <li class="maximize">
+          <a class="text-dark" href="javascript:void(0)" (click)="toggleFullScreen()">
+            <app-feather-icons [icon]="'maximize'"></app-feather-icons>
+          </a>
+        </li>
+        <li class="profile-nav onhover-dropdown p-0">
+          <cmdca-my-account-header-admin></cmdca-my-account-header-admin>
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>
+<!-- Page Header Ends -->

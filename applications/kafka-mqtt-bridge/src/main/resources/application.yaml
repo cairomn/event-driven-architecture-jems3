@@ -1,0 +1,16 @@
+spring:
+  kafka:
+    retries: 0
+    batch:
+      size: 16384
+    linger:
+      ms: 1
+    buffer:
+      memory: 33554432
+    consumer:
+      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      value-deserializer: org.springframework.kafka.support.serializer.JsonDeserializer
+mqtt:
+  automaticReconnect: true
+  cleanSession: true
+  connectionTimeout: 10

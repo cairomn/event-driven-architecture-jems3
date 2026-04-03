@@ -1,0 +1,66 @@
+version: '3.8'
+
+services:
+  # Executa instância do MongoDB para salvar os dados.
+  mongodb:
+    image: mongo:4.0.5
+    hostname: mongodb
+    container_name: mongodb
+    restart: always
+    expose:
+      - 27017
+    ports:
+      - "27017:27017"
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: smartlabRoot
+      MONGO_INITDB_ROOT_PASSWORD: smartlabRoot2022
+    volumes:
+      - ./mongodb:/data/db
+    networks:
+      - infra_network
+
+  # Instância do Mongo Express para visualização dos dados.
+  mongo-express:
+    image: mongo-express
+    hostname: mongo-express
+    container_name: mongo-express
+    restart: always
+    environment:
+      - ME_CONFIG_MONGODB_SERVER=mongodb
+      - ME_CONFIG_MONGODB_PORT=27017
+      - ME_CONFIG_MONGODB_AUTH_USERNAME=smartlabRoot
+      - ME_CONFIG_MONGODB_AUTH_PASSWORD=smartlabRoot2022
+      - ME_CONFIG_BASICAUTH_USERNAME=dev
+      - ME_CONFIG_BASICAUTH_PASSWORD=dev
+    depends_on:
+      - mongodb
+    ports:
+      - "8888:8081"
+    expose:
+      - 8888
+    networks:
+      - infra_network
+
+  # Instância em execução do postgresql.
+  postgresql:
+    image: postgres:14.2-alpine
+    hostname: postgresql
+    container_name: postgresql-management
+    restart: always
+    environment:
+      POSTGRES_USER: SMARTLAB_USER
+      POSTGRES_PASSWORD: SMARTLAB_123456
+      POSTGRES_DB: SMARTLAB_DB
+    expose:
+      - 5432
+    ports:
+      - "5432:5432"
+    volumes:
+      - ./postgres/data:/var/lib/postgresql/data
+    networks:
+      - infra_network
+
+# Redes
+networks:
+  infra_network:
+    external: true

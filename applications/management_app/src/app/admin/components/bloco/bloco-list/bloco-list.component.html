@@ -1,0 +1,70 @@
+<app-breadcrumb [title]="'Blocos'" [items]="['Bloco']" [active_item]="'Listar'"></app-breadcrumb>
+
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-sm-12">
+      <div class="card">
+        <div class="card-header">
+          <div class="row">
+            <div class="col-6">
+              <h5 class="pt-1">Listar Blocos</h5>
+            </div>
+            <div class="col-6">
+              <a [routerLink]="getUrlRotaCadastro()" class="btn btn-success btn-sm float-right">
+                Inserir Bloco
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <div class="card-body">
+          <form class="form theme-form">
+            <div class="row my-2">
+              <div class="col-4">
+                <div class="form-group">
+                  <label for="blocFormInstituicao">Instituição:</label>
+                  <select class="form-control" name="blocFormInstituicao" id="blocFormInstituicao"
+                    (change)="getBlocos($event.target.value)">
+                    <option value="">Selecione</option>
+                    <option *ngFor="let instituicao of instituicoes;" value="{{ instituicao.id }}">
+                      {{ instituicao.nome }}
+                    </option>
+                  </select>
+                </div>
+              </div>
+            </div>
+          </form>
+        </div>
+
+        <div class="table-responsive" *ngIf="idInstituicao !== ''">
+          <table class="table table-hover text-center">
+            <thead>
+              <tr>
+                <th>Bloco</th>
+                <th>Ações</th>
+              </tr>
+            </thead>
+            <tbody *ngIf="blocos.length > 0">
+              <tr *ngFor="let bloco of blocos;">
+                <td>{{ bloco.nome }}</td>
+                <td>
+                  <a [routerLink]="['/admin/instituicao/bloco/' + bloco.id + '/editar']"
+                    class="badge badge-primary">
+                    Alterar
+                  </a>
+                  <a class="badge badge-danger pointer" (click)="abrirModal(bloco)">Remover</a>
+                </td>
+              </tr>
+            </tbody>
+            <tbody *ngIf="blocos.length == 0">
+              <tr>
+                <td colspan="2">Nenhum resultado encontrado.</td>
+              </tr>
+            </tbody>
+          </table>
+          <app-pagination [pagedResponse]="paged" (paginar)="paginar($event);"></app-pagination>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

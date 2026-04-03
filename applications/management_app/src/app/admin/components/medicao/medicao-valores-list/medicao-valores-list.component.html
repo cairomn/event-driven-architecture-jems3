@@ -1,0 +1,21 @@
+<table class="table table-hover text-center">
+  <thead>
+    <tr>
+      <th class="font-weight-bold">Data de Cadastro</th>
+      <th class="font-weight-bold">Valor</th>
+    </tr>
+  </thead>
+  <tbody *ngIf="medicoes.content.length > 0">
+    <tr *ngFor="let medicao of medicoes.content;">
+      <td>{{ medicao.dataCadastro | date: 'dd/MM/yyyy hh:mm:ss' }}</td>
+      <td>
+        <span>{{ medicao.valor | number:'.0-6' }}</span>
+      </td>
+    </tr>
+  </tbody>
+  <tbody *ngIf="medicoes.content.length == 0">
+    <tr>
+      <td colspan="2">Nenhum registro encontrado</td>
+    </tr>
+  </tbody>
+</table>
