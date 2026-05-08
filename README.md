@@ -4,7 +4,7 @@ Objetivo dos artefatos: criar um ambiente que gerencie uma SmartLab desde o cód
 
 Título do Projeto: On the Scale Transition of Event-Driven IoT Architectures: An Experimental Evaluation
 
-Resumo do Projeto:
+Resumo do Projeto: Event-driven Internet of Things (IoT) architectures are widely adopted due to their flexibility and decoupling properties, yet their behavior during scale transitions remains insufficiently understood. In particular, how performance and reliability evolve when systems move from moderate to high workload regimes is often underexplored. This paper presents an experimental evaluation of an event-driven IoT architecture focusing on the transition from medium- to large-scale operation. The proposed architecture combines MQTT and Apache Kafka to decouple data ingestion from processing and is evaluated using a reproducible testbed with synthetic workloads under constant and exponential load patterns. Experimental results show that HTTP latency remains stable across all scenarios, while message acceptance rates reveal clear throughput saturation points under extreme load. These findings demonstrate that scale transition manifests primarily through reliability degradation rather than latency increase, highlighting the importance of multi-dimensional evaluation when assessing scalability in IoT systems.
 
 # Estrutura do readme.md
 
@@ -86,3 +86,7 @@ Executar o docker e verificar que todas as instâncias estão em execução. Cas
 ## ESP32
 
 Após configurar o ESP32, verificar pelo DEBUG do arduino IDE se os dados estão sendo lidos e publicados nos tópicos do MQTT.
+
+# LICENSE
+
+Este projeto está licenciado sob a licença MIT. Consulte o arquivo [LICENSE](https://github.com/cairomn/event-driven-architecture-jems3/LICENCE) para mais detalhes.
