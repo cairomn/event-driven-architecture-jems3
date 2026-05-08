@@ -89,4 +89,4 @@ Após configurar o ESP32, verificar pelo DEBUG do arduino IDE se os dados estão
 
 # LICENSE
 
-Este projeto está licenciado sob a licença MIT. Consulte o arquivo [LICENSE](https://github.com/cairomn/event-driven-architecture-jems3/LICENCE) para mais detalhes.
+Este projeto está licenciado sob a licença MIT. Consulte o arquivo [LICENSE](https://github.com/cairomn/event-driven-architecture-jems3/blob/main/LICENSE) para mais detalhes.
