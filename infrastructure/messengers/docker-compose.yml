@@ -1,0 +1,50 @@
+services:
+  # Executa uma instância do Mosquitto para os sensores IoT.
+  mosquitto:
+    image: eclipse-mosquitto:1.5.5
+    hostname: mosquitto
+    container_name: mosquitto
+    restart: always
+    ports:
+      - 1883:1883
+    networks:
+      - infra_network
+    volumes:
+      - ./mosquitto/config/:/mosquitto/config/
+      - ./mosquitto/data/:/mosquitto/data/
+
+  zookeeper1:
+    image: zookeeper:3.9.1
+    container_name: zookeeper1
+    environment:
+      ZOOKEEPER_CLIENT_PORT: 2181
+    ports:
+      - 22181:2181
+    networks:
+      - infra_network
+    restart: always
+
+  kafka1:
+    image: confluentinc/cp-kafka:7.7.0
+    container_name: kafka1
+    depends_on:
+      - zookeeper1
+    environment:
+      KAFKA_BROKER_ID: 1
+      KAFKA_ZOOKEEPER_CONNECT: zookeeper1:2181
+      KAFKA_LISTENERS: PLAINTEXT://:9092,PLAINTEXT_HOST://0.0.0.0:29092
+      KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://kafka1:9092,PLAINTEXT_HOST://localhost:29092
+      KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: PLAINTEXT:PLAINTEXT,PLAINTEXT_HOST:PLAINTEXT
+      KAFKA_INTER_BROKER_LISTENER_NAME: PLAINTEXT
+      KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
+    ports:
+      - 9092:9092
+      - 29092:29092
+    networks:
+      - infra_network
+    restart: always
+
+networks:
+  infra_network:
+    name: infra_network
+    driver: bridge

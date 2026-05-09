@@ -15,7 +15,7 @@ export interface Menu {
 	badgeValue?: string;
 	active?: boolean;
 	bookmark?: boolean;
-  allowedRoles?: string[];
+	allowedRoles?: string[];
 	children?: Menu[];
 }
 
@@ -26,7 +26,7 @@ export interface Menu {
 export class NavService implements OnDestroy {
 
 	private unsubscriber: Subject<any> = new Subject();
-	public  screenWidth: BehaviorSubject<number> = new BehaviorSubject(window.innerWidth);
+	public screenWidth: BehaviorSubject<number> = new BehaviorSubject(window.innerWidth);
 
 	// Search Box
 	public search: boolean = false;
@@ -60,11 +60,11 @@ export class NavService implements OnDestroy {
 				this.megaMenu = false;
 				this.levelMenu = false;
 			}
-			if(evt.target.innerWidth < 1199) {
+			if (evt.target.innerWidth < 1199) {
 				this.megaMenuColapse = true;
 			}
 		});
-		if(window.innerWidth < 991) { // Detect Route change sidebar close
+		if (window.innerWidth < 991) { // Detect Route change sidebar close
 			this.router.events.subscribe(event => {
 				this.collapseSidebar = true;
 				this.megaMenu = false;
@@ -89,24 +89,24 @@ export class NavService implements OnDestroy {
 			type: 'link',
 			icon: 'home',
 			active: true,
-      allowedRoles: ['ROLE_VIEWER', 'ROLE_USER', 'ROLE_ADMIN']
+			allowedRoles: ['ROLE_VIEWER', 'ROLE_USER', 'ROLE_ADMIN']
 		},
-    {
-      title: 'Usuários',
-      icon: 'user',
-      type: 'sub',
-      active: false,
-      allowedRoles: ['ROLE_ADMIN'],
-      children: [
-        { path: '/admin/usuario', title: 'Gerênciar Usuários', type: 'link', allowedRoles: ['ROLE_ADMIN'] },
-      ]
-    },
+		{
+			title: 'Usuários',
+			icon: 'user',
+			type: 'sub',
+			active: false,
+			allowedRoles: ['ROLE_ADMIN'],
+			children: [
+				{ path: '/admin/usuario', title: 'Gerênciar Usuários', type: 'link', allowedRoles: ['ROLE_ADMIN'] },
+			]
+		},
 		{
 			title: 'Instituições',
 			icon: 'folder',
 			type: 'sub',
 			active: false,
-      allowedRoles: ['ROLE_ADMIN'],
+			allowedRoles: ['ROLE_ADMIN'],
 			children: [
 				{ path: '/admin/instituicao', title: 'Instituição', type: 'link', allowedRoles: ['ROLE_ADMIN'] },
 				{ path: '/admin/instituicao/bloco', title: 'Bloco', type: 'link', allowedRoles: ['ROLE_ADMIN'] },
@@ -122,7 +122,7 @@ export class NavService implements OnDestroy {
 			// badgeType: 'success',
 			// badgeValue: '2',
 			active: false,
-      allowedRoles: ['ROLE_VIEWER', 'ROLE_USER', 'ROLE_ADMIN'],
+			allowedRoles: ['ROLE_VIEWER', 'ROLE_USER', 'ROLE_ADMIN'],
 			children: [
 				{ path: '/admin/microcontrolador', title: 'Microcontrolador', type: 'link', allowedRoles: ['ROLE_ADMIN', 'ROLE_USER'] },
 				{ path: '/admin/microcontrolador/medicoes', title: 'Acompanhar Medições', type: 'link', allowedRoles: ['ROLE_VIEWER', 'ROLE_USER', 'ROLE_ADMIN'] },

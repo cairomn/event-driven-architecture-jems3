@@ -9,7 +9,7 @@ spring:
       password: smartlabRoot2022
       database: smartlab
   kafka:
-    bootstrap-servers: kafka:9093
+    bootstrap-servers: kafka1:9092
     group-id: lab-stream-control
 server:
   port: 8080

@@ -2,9 +2,15 @@ spring:
   application:
     name: Management API
   datasource:
-    url: jdbc:postgresql://postgresql-management:5432/SMARTLAB_DB
+    url: jdbc:postgresql://postgres1:5432/SMARTLAB_DB
     username: SMARTLAB_USER
     password: SMARTLAB_123456
+    driver-class-name: org.postgresql.Driver
   kafka:
-    bootstrap-servers: kafka:9092
+    bootstrap-servers: kafka1:9092
     client-id: management-api-local
+
+smartlab:
+  app:
+    jwtSecret: eyJhbGciOiJIUzI1NiJ9seyJSb2xlIjoiQWRtaW4iLCJJc3N1ZXIiOiJJc3N1ZXIiLCJVc2VybmFtZSI6IkphdmFJblVzZSIsImV4cCI6MTcxODcyMzQ1NywiaWF0IjoxNzE4NzIzNDU3fQrFcQWRdvspKteiRgmmUAIiwbh7fLL0KZfU8baSfw2mjE
+    jwtExpirationMs: 3600000

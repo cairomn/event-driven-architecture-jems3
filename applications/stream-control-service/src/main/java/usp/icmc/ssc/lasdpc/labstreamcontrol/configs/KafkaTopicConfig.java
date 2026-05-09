@@ -28,8 +28,8 @@ public class KafkaTopicConfig {
      public NewTopic createTemperatureMeasureTopic() {
          return TopicBuilder
                  .name("temperature-measure")
-                 .partitions(4)
-                 .replicas(2)
+                 .partitions(1)
+                 .replicas(1)
                  .build();
      }
 
@@ -37,8 +37,8 @@ public class KafkaTopicConfig {
      public NewTopic createHumidityMeasureTopic() {
          return TopicBuilder
                  .name("humidity-measure")
-                 .partitions(4)
-                 .replicas(2)
+                 .partitions(1)
+                 .replicas(1)
                  .build();
      }
 
@@ -46,8 +46,8 @@ public class KafkaTopicConfig {
      public NewTopic createCO2MeasureTopic() {
          return TopicBuilder
                  .name("co2-measure")
-                 .partitions(4)
-                 .replicas(2)
+                 .partitions(1)
+                 .replicas(1)
                  .build();
      }
 
@@ -55,8 +55,8 @@ public class KafkaTopicConfig {
      public NewTopic createMovimentMeasureTopic() {
          return TopicBuilder
                  .name("moviment-measure")
-                 .partitions(4)
-                 .replicas(2)
+                 .partitions(1)
+                 .replicas(1)
                  .build();
      }
 
@@ -64,8 +64,8 @@ public class KafkaTopicConfig {
      public NewTopic createLuminosityMeasureTopic() {
          return TopicBuilder
                  .name("luminosity-measure")
-                 .partitions(4)
-                 .replicas(2)
+                 .partitions(1)
+                 .replicas(1)
                  .build();
      }
 
@@ -73,8 +73,8 @@ public class KafkaTopicConfig {
      public NewTopic statusCheckTopic() {
          return TopicBuilder
                  .name("status-check")
-                 .partitions(4)
-                 .replicas(2)
+                 .partitions(1)
+                 .replicas(1)
                  .build();
      }
 
@@ -82,7 +82,7 @@ public class KafkaTopicConfig {
      public NewTopic createLampOnOffTopic() {
          return TopicBuilder
                  .name("lamp-on-off")
-                 .partitions(2)
+                 .partitions(1)
                  .replicas(1)
                  .build();
      }
@@ -91,7 +91,7 @@ public class KafkaTopicConfig {
      public NewTopic createAirConditionerOnOffTopic() {
          return TopicBuilder
                  .name("air-conditioner-on-off")
-                 .partitions(2)
+                 .partitions(1)
                  .replicas(1)
                  .build();
      }
@@ -100,7 +100,7 @@ public class KafkaTopicConfig {
      public NewTopic createAirConditionerChangeTemperatureTopic() {
          return TopicBuilder
                  .name("air-conditioner-change-temperature")
-                 .partitions(2)
+                 .partitions(1)
                  .replicas(1)
                  .build();
      }

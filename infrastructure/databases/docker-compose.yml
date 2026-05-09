@@ -1,0 +1,42 @@
+services:
+  # Executa instância do MongoDB para salvar os dados.
+  mongodb:
+    image: mongo:4.0.5
+    hostname: mongodb
+    container_name: mongodb
+    restart: always
+    ports:
+      - "27017:27017"
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: smartlabRoot
+      MONGO_INITDB_ROOT_PASSWORD: smartlabRoot2022
+      ME_CONFIG_MONGODB_ADMINUSERNAME: smartlabRoot
+      ME_CONFIG_MONGODB_ADMINPASSWORD: smartlabRoot2022
+    volumes:
+      - ./mongodb:/data/db
+    networks:
+      - db_infra_network
+
+  # Instância em execução do postgresql.
+  postgres1:
+    image: postgres:14.2-alpine
+    container_name: postgres1
+    restart: always
+    environment:
+      POSTGRES_USER: SMARTLAB_USER
+      POSTGRES_PASSWORD: SMARTLAB_123456
+      POSTGRES_DB: SMARTLAB_DB
+    ports:
+      - "5433:5432"
+    volumes:
+      - ./postgresql.conf:/etc/postgresql.conf
+      - ./postgres/data:/var/lib/postgresql/data
+      - ./init.sql:/docker-entrypoint-initdb.d/init.sql
+    networks:
+      - db_infra_network
+
+# Redes
+networks:
+  db_infra_network:
+    name: infra_network
+    external: true

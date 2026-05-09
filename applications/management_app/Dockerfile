@@ -2,7 +2,7 @@ FROM node:16-alpine AS node
 WORKDIR /app
 COPY ./ ./
 RUN npm install --legacy-peer-deps
-RUN npm run build --prod
+RUN npm run build
 
 FROM nginx:alpine
 COPY ./nginx.conf /etc/nginx/nginx.conf

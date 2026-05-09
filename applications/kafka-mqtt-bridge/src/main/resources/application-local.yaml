@@ -7,4 +7,4 @@ spring:
 mqtt:
   clientId: mqtt_client_lasdpc_dev
   broker:
-    address: tcp://localhost:1883
+    address: tcp://mosquitto:1883
